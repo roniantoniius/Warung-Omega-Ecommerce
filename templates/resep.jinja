@@ -1,0 +1,65 @@
+    {% extends "base.html" %}
+
+    {% block title %}Warung Omega - Resep{% endblock %}
+
+    {% block content %}
+
+    <!-- reseps content -->
+    <div class="bg-main">
+        <div class="container">
+            <div class="box">
+                <div class="breadcumb">
+                    <a href="/">home</a>
+                    <span><i class='bx bxs-chevrons-right'></i></span>
+                    <a href="/reseps-page">all reseps</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="row" id="reseps">
+                    <!-- Looping untuk menampilkan reseps -->
+                    {% for resep in reseps %}
+                    <div class="col-4 col-md-12 col-sm-12">
+                        <div class="product-card">
+                            <div class="product-card-img">
+                                <img src="/static/images/{{ resep.gambar_resep }}" alt="{{ resep.nama_resep }}">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="product-btn">
+                                    <a href="reseps-detail/{{ resep.id}}">
+                                        <button class="btn-flat btn-hover btn-shop-now">lihat</button>
+                                    </a>
+                                    <button class="btn-flat btn-hover btn-cart-add">
+                                        <i class='bx bxs-cart-add'></i>
+                                    </button>
+                                    <button class="btn-flat btn-hover btn-cart-add">
+                                        <i class='bx bxs-heart'></i>
+                                    </button>
+                                </div>
+                                <div class="product-card-name">
+                                    <h4>{{ resep.nama_resep }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index % 3 == 0 %}
+                        </div><div class="row">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="box">
+                <ul class="pagination">
+                    <li><a href="?page={{ page - 1 }}" {% if page <= 1 %}class="disabled"{% endif %}><i class='bx bxs-chevron-left'></i></a></li>
+                    {% for p in range(1, total_pages + 1) %}
+                    <li><a href="?page={{ p }}" {% if page == p %}class="active"{% endif %}>{{ p }}</a></li>
+                    {% endfor %}
+                    <li><a href="?page={{ page + 1 }}" {% if page >= total_pages %}class="disabled"{% endif %}><i class='bx bxs-chevron-right'></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end reseps content -->
+    {% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Daftar Transaksi - Warung Omega{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <br>
+    <h1 style="text-align: center;">Daftar Transaksi Anda, <strong>{{ username }}</strong></h1>
+    <br>
+    <div id="transaction-items">
+        {% if not username %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'Kamu harus login terlebih dahulu untuk melihat transaksi yang kamu lakukan.',
+                    confirmButtonText: 'Login Sekarang',
+                    confirmButtonColor: '#3085d6',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/";
+                    }
+                });
+            });
+        </script>
+        {% else %}
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h1 class="accordion-header" id="headingOne" style="background-color: white; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <button class="accordion-button d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background-color: white; box-shadow: none;">
+                        <img src="{{ url_for('static', path='images/logo putih omega-no bg.png') }}" alt="logo" class="mb-logo" style="width: 200px; height: auto;">
+                        <h4 class="fw-bold" style="flex-grow: 1; text-align: right; font-weight: bold; padding-right: 10px;">Total Transaksi Berhasil: <span id="total-price">Rp 0</span></h4>
+                    </button>
+                </h1>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Daftar Nama Produk</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaksi in transaksi_list %}
+                                <tr id="cart-item-{{ transaksi.id_transaksi }}">
+                                    <td>{{ transaksi.id_transaksi }}</td>
+                                    <td>{{ transaksi.products }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if transaksi.status == 'Sukses' %}bg-primary
+                                            {% else %}bg-warning
+                                            {% endif %}
+                                            " style="font-size: 18px; font-weight: bold; color: #ffffff;"
+                                        >{{ transaksi.status }}</span>
+                                    </td>
+                                    <td class="text-right"><strong>Rp {{ transaksi.total }}</strong></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div style="text-align: center; padding-top: 20px; padding-bottom: 20px;">
+    <div style="display: inline-flex; justify-content: center;">
+      <a href="/products-page"><button class="btn-flat btn-hover">Kembali Belanja</button></a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+        // Pilih semua baris transaksi di dalam <tbody>
+        const transaksiRows = document.querySelectorAll('tbody tr');
+
+        transaksiRows.forEach(row => {
+            // Cari elemen <td> yang berisi status dan harga
+            const statusElement = row.querySelector('td span.badge');
+            const hargaElement = row.querySelector('td.text-right');
+
+            if (statusElement && hargaElement) {
+                // Periksa jika status adalah "Sukses"
+                const statusText = statusElement.innerText.trim();
+                if (statusText === 'Sukses') {
+                    // Ambil harga dan format menjadi angka
+                    let hargaText = hargaElement.innerText.replace('Rp', '').trim();
+                    hargaText = hargaText.split('.')[0]; // Menghapus format jika ada
+                    hargaText = hargaText.replace(/\./g, ''); // Menghapus titik
+
+                    let harga = parseInt(hargaText, 10); // Mengubah string menjadi angka
+
+                    if (!isNaN(harga)) {
+                        totalPrice += harga; // Menambahkan harga ke total jika status "Sukses"
+                    }
+                }
+            }
+        });
+
+        // Tampilkan total harga dengan format Rupiah
+        document.getElementById('total-price').innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateTotalPrice);
+</script>
+{% endblock %}

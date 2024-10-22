@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Account Verification',
+                text: 'Thanks for choosing Warung Omega, please click the button below to verify your account.',
+                icon: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#0275d8',
+                confirmButtonText: 'Verify Email',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                footer: `<h5>If you did not register for Warung Omega, please kindly ignore this email and nothing will happen. Thanks</h5>`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "http://localhost:8000/verification/?token={token}";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

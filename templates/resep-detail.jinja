@@ -1,0 +1,48 @@
+    {% extends "base.html" %}
+
+    {% block title %}Warung Omega - Resep Seafood{% endblock %}
+
+    {% block content %}
+
+    <!-- product-detail content -->
+    <div class="bg-main">
+        <div class="container">
+            <div class="box">
+                <div class="breadcumb">
+                    <a href="/">home</a>
+                    <span><i class='bx bxs-chevrons-right'></i></span>
+                    <a href="/reseps-page">all reseps</a>
+                    <span><i class='bx bxs-chevrons-right'></i></span>
+                    <a href="#">{{ resep.nama_resep }}</a>
+                </div>
+            </div>
+            <div class="row product-row">
+                <div class="col-5 col-md-12">
+                    <div class="product-img" id="product-img">
+                        <img src="/static/images/{{ resep.gambar_resep }}" alt="{{ resep.nama_resep }}" style="border-radius: 10px; width: 500px; height: 400px;">
+                    </div>
+                </div>
+                <div class="col-7 col-md-12">
+                    <div class="product-info">
+                        <h1>{{ resep.nama_resep }}</h1>
+                        <h3>Bahan-Bahan</h3>
+                        <ol>
+                            <li><p class="product-description">{{ resep.bahan_1 }}</p></li>
+                            <li><p class="product-description">{{ resep.bahan_2 }}</p></li>
+                            <li><p class="product-description">{{ resep.bahan_3 }}</p></li>
+                        </ol>
+  
+                        <h3>Langkah-langkah</h3>
+                        <ol>
+                            <li><p class="product-description">{{ resep.langkah_1 }}</p></li>
+                            <li><p class="product-description">{{ resep.langkah_2 }}</p></li>
+                            <li><p class="product-description">{{ resep.langkah_3 }}</p></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- end resep-detail content -->
+    {% endblock %}

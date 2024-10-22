@@ -1,0 +1,15 @@
+.env
+.idea
+venv/
+static/
+
+__pycache__/
+templates/base.html
+templates/index.jinja
+templates/product-detail.jinja
+templates/contact.jinja
+templates/verification.html
+app/routes/midtrans_routes.py
+app/routes/user_routes.py
+app/routes/transaction_routes.py
+app/routes/contact_routes.py
