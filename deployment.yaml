@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+      spec:
+        containers:
+        - name: fastapi-container
+          image: roniantonius/warungomega:latest
+          ports:
+          - containerPort: 8000
