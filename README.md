@@ -115,7 +115,6 @@ To deploy the application on a Kubernetes cluster:
    ```
    Use the external IP listed under your service to access the application.
 
-```
 
 ### List of Website Architecture on `document/` directory or at `SRS Warung Omega.pdf`
 1. Use Case Diagram
