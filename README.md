@@ -23,7 +23,8 @@ Warung Omega, a local seafood restaurant, seeks to expand its customer base and 
 - Oauth
 - Heroku
 
-### How to run this code?
+## How to run this code?
+### A. Local
 1. Clone this repo
 ```
 git clone https://github.com/roniantoniius/Warung-Omega-Ecommerce.git
@@ -64,6 +65,56 @@ YOUR_OWN_DB_NAME
 7. Run your app
 ```
 uvicorn main:app --reload
+```
+
+### B. Docker
+
+1. Clone this repo
+   ```bash
+   git clone https://github.com/roniantonius/Warung-Omega-Ecommerce.git
+   ```
+
+2. Build the Docker image
+   ```bash
+   docker build -t warungomega:latest .
+   ```
+
+3. Run the Docker container
+   ```bash
+   docker run -d -p 8000:8000 warungomega:latest
+   ```
+
+4. Access the application
+   Open a browser and go to `http://localhost:8000` to see the running FastAPI application.
+
+5. (Optional) Push the image to Docker Hub  
+   If you want to deploy this on a Kubernetes cluster, you’ll need to push the image to a container registry (e.g., Docker Hub).
+
+   ```bash
+   docker tag warungomega:latest roniantonius/warungomega:latest
+   docker push roniantonius/warungomega:latest
+   ```
+
+### C. Kubernetes Deployment
+
+To deploy the application on a Kubernetes cluster:
+
+1. Apply the deployment configuration:
+   ```bash
+   kubectl apply -f deployment.yaml
+   ```
+
+2. Apply the service configuration:
+   ```bash
+   kubectl apply -f service.yaml
+   ```
+
+3. Get the external IP address:
+   ```bash
+   kubectl get services
+   ```
+   Use the external IP listed under your service to access the application.
+
 ```
 
 ### List of Website Architecture on `document/` directory or at `SRS Warung Omega.pdf`
